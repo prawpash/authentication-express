@@ -1,14 +1,16 @@
-import { Request, Response } from "express";
-import { AnyZodObject, z } from "zod";
+import { NextFunction, Response, Request } from "express";
+import { AnyZodObject } from "zod";
 
-export async function zParse<T extends AnyZodObject>(
-  schema: T,
-  req: Request,
-  res: Response
-): Promise<z.infer<T>> {
-  try {
-    return await schema.parseAsync(req)
-  } catch (error) {
-    return res.status(400).json(error)
+export const zParse = (schema: AnyZodObject) =>
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      await schema.parseAsync({
+        body: req.body,
+        query: req.query,
+        params: req.params,
+      });
+      return next();
+    } catch (error) {
+      return res.status(400).json(error);
+    }
   }
-}
