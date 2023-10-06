@@ -3,6 +3,7 @@ import 'dotenv/config'
 import userRoutes from "@src/modules/users/routes"
 import logger from "./utils/logger";
 import customError from "./utils/customError";
+import { hashPassword } from "./utils/hash";
 
 export const app = express()
 const APP_PORT = process.env.APP_PORT
@@ -18,8 +19,9 @@ function errorHandler(
 
 app.use(express.json())
 
-app.get("/", (req, res) => {
-  return res.send("Hello")
+app.get("/", async (req, res) => {
+  const password = await hashPassword("hahahaha")
+  return res.send(password)
 })
 
 // the error handler is placed after routes
