@@ -2,9 +2,11 @@
   "name": "authentication_implementation",
   "version": "1.0.0",
   "description": "Implementasi sistem autentikasi",
+  "type": "module",
   "main": "./src/index.ts",
   "scripts": {
-    "dev": "nodemon ./src/index.ts",
+    "build": "tsc",
+    "dev": "nodemon -x node --no-warnings --experimental-specifier-resolution=node --loader ts-node/esm ./src/index.ts",
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "db:migrate": "drizzle-kit push:mysql",
@@ -30,7 +32,6 @@
     "nodemon": "^3.0.1",
     "pino-pretty": "^10.2.3",
     "ts-node": "^10.9.1",
-    "ts-node-dev": "^2.0.0",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.2.2"
   }

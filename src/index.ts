@@ -1,9 +1,11 @@
 import express, { NextFunction, Request, Response } from "express";
 import 'dotenv/config'
-import userRoutes from "@src/modules/users/routes"
-import logger from "./utils/logger";
-import customError from "./utils/customError";
-import { hashPassword } from "./utils/hash";
+// import userRoutes from "@src/modules/users/routes.js"
+import logger from "./utils/logger.js";
+import customError from "./utils/customError.js";
+// import { hashPassword } from "./utils/hash";
+import db from "./utils/db.js"
+import { usersTable } from "./db_schemas/users.js";
 
 export const app = express()
 const APP_PORT = process.env.APP_PORT
@@ -20,8 +22,11 @@ function errorHandler(
 app.use(express.json())
 
 app.get("/", async (req, res) => {
-  const password = await hashPassword("hahahaha")
-  return res.send(password)
+  const users = await db.select().from(usersTable)
+  console.log(users)
+  // const password = await hashPassword("hahahaha")
+  // return res.send(password)
+  return res.send("halo")
 })
 
 // the error handler is placed after routes
