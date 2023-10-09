@@ -7,6 +7,7 @@ export const hashPassword = async (password: string) => {
     return hashedPassword
   } catch (error) {
     logger.error(error)
+    throw new Error("Error in hash password function")
   }
 }
 
