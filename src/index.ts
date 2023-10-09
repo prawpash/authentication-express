@@ -1,6 +1,6 @@
 import express, { NextFunction, Request, Response } from "express";
 import 'dotenv/config'
-// import userRoutes from "@src/modules/users/routes.js"
+import userRoutes from "@src/modules/users/routes.js"
 import logger from "./utils/logger.js";
 import customError from "./utils/customError.js";
 // import { hashPassword } from "./utils/hash";
@@ -28,6 +28,8 @@ app.get("/", async (req, res) => {
   // return res.send(password)
   return res.send("halo")
 })
+
+app.use("/users", userRoutes)
 
 // the error handler is placed after routes
 // if it were above it would not receive errors
